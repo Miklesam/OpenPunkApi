@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollContainer"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/card_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/beer_image_height"
+                android:id="@+id/beer_image"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="100"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="70"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/beer_title_text_size"
+                    android:textColor="#000"
+                    android:id="@+id/beer_name"
+                    android:padding="5dp"
+                    android:text="@string/title_beer_name"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/add_to_favorite"
+                    android:src="@drawable/heaert_empty"
+                    android:layout_weight="15">
+
+                </ImageView>
+
+                <TextView
+                    android:padding="@dimen/card_padding"
+                    android:layout_weight="15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:id="@+id/beer_id"
+                    android:gravity="end"
+                    android:text="@string/title_beer_id"/>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:padding="@dimen/card_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/beer_description_text_size"
+                android:textStyle="bold"
+                android:id="@+id/beer_tagline"
+                android:text="@string/title_beer_tagline"/>
+
+            <TextView
+                android:padding="@dimen/card_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/beer_description_text_size"
+                android:textStyle="bold"
+                android:id="@+id/beer_description"
+                android:text="@string/title_beer_description"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/big_fab_margin"></View>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

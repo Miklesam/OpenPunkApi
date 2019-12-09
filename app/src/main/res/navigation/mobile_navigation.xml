@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.miklesam.openpunkapi.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.miklesam.openpunkapi.ui.category.CategoryFragment"
+        android:label="@string/title_category"
+        tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.miklesam.openpunkapi.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.miklesam.openpunkapi.ui.random.RandomFragment"
+        android:label="@string/title_random"
+        tools:layout="@layout/fragment_random" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.miklesam.openpunkapi.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.miklesam.openpunkapi.ui.favorite.FavoriteFragment"
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
