@@ -10,4 +10,6 @@
     <string name="title_beer_tagline">BeerTagline</string>
     <string name="title_beer_description">Description</string>
 
+    <string name="get_random_title">Get Your Random Beer</string>
+
 </resources>

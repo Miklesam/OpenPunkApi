@@ -7,6 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/beer_view_layout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/get_random_title"
+        android:padding="@dimen/big_card_padding"
+        android:textSize="@dimen/fab_text"
+        android:id="@+id/screenSaver"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal">
+
+    </TextView>
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -18,6 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/card_padding"
         android:layout_gravity="center"
         android:visibility="gone"
         android:id="@+id/textError"/>

@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.codingwithmitch.foodrecipes.persistence.Converters
 
-@Database(entities = [Beer::class], version = 1)
+@Database(entities = [Beer::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class BeerDatabase : RoomDatabase() {
 

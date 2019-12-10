@@ -39,10 +39,11 @@ class FavoriteFragment : Fragment(),OnBeerListener {
         val beerDescription=root.findViewById<TextView>(R.id.beer_description)
         val scrolView = root.findViewById<ScrollView>(R.id.scrollContainer)
         val mbeer_id=root.findViewById<TextView>(R.id.beer_id)
+        val favorite=root.findViewById<ImageView>(R.id.add_to_favorite)
 
-       val emo=root.findViewById<ImageView>(R.id.emo)
-        emo.setOnClickListener {favoriteViewModel.setView(false)}
-
+        val arrowBack=root.findViewById<ImageView>(R.id.emo)
+        arrowBack.setOnClickListener {favoriteViewModel.setView(false)}
+        favorite.setImageResource(R.drawable.heaert_fool)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.setHasFixedSize(true)
         val adapter = FavoriteAdapter(this)
@@ -76,11 +77,11 @@ class FavoriteFragment : Fragment(),OnBeerListener {
             if(isLoading) {
                 recycler.visibility=GONE
                 scrolView.visibility=VISIBLE
-                emo.visibility= VISIBLE
+                arrowBack.visibility= VISIBLE
             }else{
                 recycler.visibility= VISIBLE
                 scrolView.visibility= GONE
-                emo.visibility= INVISIBLE
+                arrowBack.visibility= INVISIBLE
             }
         })
 

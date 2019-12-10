@@ -24,4 +24,11 @@
     </LinearLayout>
 
 
+    <include
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/beer_view_layout"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

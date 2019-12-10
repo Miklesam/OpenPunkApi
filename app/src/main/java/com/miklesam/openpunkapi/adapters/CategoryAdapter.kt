@@ -20,7 +20,7 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
 
 
     private val mOnCategoryListener=onCategoryListener
-    private var mBeer: List<Beer>? = null
+    private var mBeer: MutableList<Beer>? = null
     companion object {
         const val BEER_TYPE = 1
         const val LOADING_TYPE = 2
@@ -48,6 +48,11 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.layout_loading_list_item, parent, false)
                 return LoadingViewHolder(view!!)
+            }
+            END_TYPE->{
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layuot_datas_end, parent, false)
+                return EndDataViewHolder(view!!)
             }
             else -> CategoryViewHolder(view!!, mOnCategoryListener)
         }
@@ -77,12 +82,16 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
             BEER_TYPE->{
                 myHolder=holder as BeerCategoryViewHolder
                 val requestOptions = RequestOptions()
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.color.white)
+                if(mBeer?.get(position)?.image_url!=null){
+                    Glide.with(holder.itemView.context)
+                        .setDefaultRequestOptions(requestOptions)
+                        .load(mBeer?.get(position)?.image_url)
+                        .into((myHolder).imageView)
+                }else{
+                    myHolder.imageView.setImageResource(R.drawable.baltic9)
+                }
 
-                Glide.with(holder.itemView.context)
-                    .setDefaultRequestOptions(requestOptions)
-                    .load(mBeer?.get(position)?.image_url)
-                    .into((myHolder).imageView)
 
                 (myHolder).name.setText(mBeer?.get(position)?.name)
                 (myHolder).tagline.setText(mBeer?.get(position)?.tagline)
@@ -94,7 +103,7 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
 
 
     fun setmBeer(beers: List<Beer>) {
-        mBeer = beers
+        mBeer = beers.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -103,8 +112,36 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
             return CATEGORY_TYPE
         } else if (mBeer?.get(position)?.name.equals("LOADING...")) {
             return LOADING_TYPE
-        }else{
+        }else if (mBeer?.get(position)?.name.equals("EXHAUSTED...")) {
+            return END_TYPE
+        }
+        else if (position == mBeer!!.size - 1
+            && position != 0
+            && !mBeer!!.get(position).name.equals("EXHAUSTED...")
+        ) {
+            return LOADING_TYPE
+        }
+        else{
             return BEER_TYPE
+        }
+    }
+
+    fun setQueryExhausted() {
+        hideLoading()
+        val exhaustedBeer = Beer("","","","","")
+        exhaustedBeer.name=("EXHAUSTED...")
+        mBeer?.add(exhaustedBeer)
+        notifyDataSetChanged()
+    }
+
+    fun hideLoading() {
+        if (isLoading()) {
+            for (beer in this!!.mBeer!!) {
+                if (beer.name.equals("LOADING...")) {
+                    mBeer?.remove(beer)
+                }
+            }
+            notifyDataSetChanged()
         }
     }
 
@@ -187,4 +224,5 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
     }
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class EndDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

@@ -17,29 +17,38 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
 
     private var repository: RandomRepository = RandomRepository(application)
     private val favorite = MutableLiveData<Boolean>()
-    private val myBeer=MutableLiveData<Beer>()
+    private val screenSaver = MutableLiveData<Boolean>()
+    private val favoriteChoose = MutableLiveData<Boolean>()
 
     fun isFavorite(): LiveData<Boolean> = favorite
+    fun isScreenSaver(): LiveData<Boolean> = screenSaver
     init {
         favorite.value=false
+        favoriteChoose.value=false
+        screenSaver.value=true
         }
 
 
     fun setFavorite(boolean: Boolean){
-        favorite.value=boolean
-    }
-/*
-    fun setFavorite(beer: Beer){
-        if(favorite.value==false){
-            myBeer.value=beer
-            repository.insert(beer)
-        }else{
-
+        Log.w("favoriteChoose ",favoriteChoose.value.toString())
+        Log.w("favorite ",favorite.value.toString())
+        if(!favoriteChoose.value!!){
+            favorite.value=boolean
         }
-        favorite.value= favorite.value!!.not()
+
     }
 
- */
+    fun setFavoriteChoose(boolean: Boolean){
+        favoriteChoose.value=boolean
+    }
+
+    fun insertBeer(beer:Beer){
+    repository.insert(beer)
+    }
+
+    fun setScreenSaver(boolean: Boolean){
+    screenSaver.value=boolean
+    }
 
     fun getRandomBeer(){
         repository.getRandomBeer()
@@ -54,7 +63,7 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
         return repository.getError()
     }
 
-    fun wasFavorite():Boolean?{
+    fun isThisFavorite():Boolean?{
         return favorite.value
     }
 

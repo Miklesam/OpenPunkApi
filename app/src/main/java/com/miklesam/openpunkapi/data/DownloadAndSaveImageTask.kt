@@ -53,7 +53,7 @@ class DownloadAndSaveImageTask(context: Context,name:String) : AsyncTask<String,
         )
         Log.w("SeiggailionDelete", dir.toString())
         Log.w("SeiggailionDelete", imagename)
-        val file = File(dir.path, imagename)
+        val file = File(dir.path, imagename+".png")
         val deleted = file.delete()
     }
 }

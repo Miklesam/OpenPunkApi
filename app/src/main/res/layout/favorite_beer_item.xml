@@ -21,16 +21,16 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_weight="90"
+            android:layout_weight="75"
             android:text="@string/title_beer_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_weight="10"
+            android:layout_weight="25"
             android:layout_height="@dimen/preImageSize"
             android:id="@+id/sqlima"
-            android:scaleType="fitEnd"
+
             />
 
 

@@ -8,10 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miklesam.openpunkapi.R
+import com.miklesam.openpunkapi.adapters.CategoryAdapter.Companion.CATEGORY_IMAGE_DIR
 import com.miklesam.openpunkapi.data.Beer
 import com.miklesam.openpunkapi.data.DownloadAndSaveImageTask
 
@@ -40,19 +38,31 @@ class RandomFragment : Fragment() {
         val fab =root.findViewById<FloatingActionButton>(R.id.fab)
         val image = root.findViewById<ImageView>(R.id.beer_image)
         val progress = root.findViewById<ProgressBar>(R.id.progressBar)
-        val scrolView = root.findViewById<ScrollView>(R.id.scrollContainer)
+        val scrolView = root.findViewById<View>(R.id.scrollContainer)
         val errorText=root.findViewById<TextView>(R.id.textError)
         val beerDescription=root.findViewById<TextView>(R.id.beer_description)
         val beerId=root.findViewById<TextView>(R.id.beer_id)
         val beerTagLine=root.findViewById<TextView>(R.id.beer_tagline)
+        val screenSaver=root.findViewById<TextView>(R.id.screenSaver)
 
         favorite.setOnClickListener {
-            if(!randomViewModel.wasFavorite()!!){
-                this.context?.let {
-                        it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url) }
+            if(randomViewModel.isThisFavorite()!!){
+                favorite.isEnabled=false
+                Toast.makeText(context, "Already Favorite Beer!", Toast.LENGTH_SHORT).show()
+            }else{
+                randomViewModel.setFavorite(true)
+                randomViewModel.setFavoriteChoose(true)
+                if(my_beer.image_url!=null){
+                    this.context?.let {
+                            it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url) }
+                }else{
+                    Log.w("path In Like","null_url")
+                    my_beer.image_url=CATEGORY_IMAGE_DIR+"baltic9"
+                }
+
+                randomViewModel.insertBeer(my_beer)
             }
-            val path = Uri.parse(context?.filesDir.toString()+"/Images/")
-            //randomViewModel.setFavorite( Beer(my_beer.name,my_beer.description,path.path+my_beer.id+".png",my_beer.tagline,my_beer.id))
+
 
       }
         fab.setOnClickListener {
@@ -60,6 +70,9 @@ class RandomFragment : Fragment() {
             scrolView.visibility=GONE
             errorText.visibility=GONE
             progress.visibility= VISIBLE
+            favorite.isEnabled=true
+            randomViewModel.setFavoriteChoose(false)
+            randomViewModel.setScreenSaver(false)
             randomViewModel.getRandomBeer()
         }
 
@@ -76,7 +89,7 @@ class RandomFragment : Fragment() {
                   randomViewModel.setFavorite(false)
             } })
         val requestOptions = RequestOptions()
-        .placeholder(R.drawable.ic_launcher_background)
+        .placeholder(R.color.white)
         my_beer=it
         scrolView.visibility= VISIBLE
         errorText.visibility=GONE
@@ -89,6 +102,7 @@ class RandomFragment : Fragment() {
             .into(image)
     }else{
         Log.w("path","null_url")
+            image.setImageResource(R.drawable.baltic9)
     }
 }
         })
@@ -110,6 +124,19 @@ class RandomFragment : Fragment() {
             }else{
                 favorite.setImageResource(R.drawable.heaert_empty)
             }
+        })
+
+        randomViewModel.isScreenSaver().observe(this, Observer {
+            if(it){
+                scrolView.visibility= GONE
+                progress.visibility= GONE
+                errorText.visibility= GONE
+                fab.show()
+                screenSaver.visibility= VISIBLE
+            }else{
+                screenSaver.visibility= GONE
+            }
+
         })
 
         return root

@@ -11,11 +11,58 @@ import com.miklesam.openpunkapi.retrofit.BeerApiClient
 class CategoryViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: CategoryRepository = CategoryRepository(application)
 
-    fun beerWithFood(page:String,per_page:String,category:String){
+    private val displayCategory = MutableLiveData<Boolean>()
+    private var loadingData: Boolean = false
+
+    private val viewingBeer = MutableLiveData<Boolean>()
+    private val choosenBeer = MutableLiveData<Beer>()
+
+
+    fun isCategoryDisplay(): LiveData<Boolean> = displayCategory
+    fun isBeerViewing(): LiveData<Boolean> = viewingBeer
+    fun getMyBeer(): LiveData<Beer> = choosenBeer
+
+    init {
+        displayCategory.value=true
+    }
+
+    fun setCategory(boolean: Boolean){
+        displayCategory.value=boolean
+    }
+
+    fun isCategory(): Boolean? {
+        return displayCategory.value
+    }
+
+    fun beerWithFood(page:Int,per_page:String,category:String){
         return repository.beerWithFood(page,per_page,category)
     }
 
     fun getBeerFood(): LiveData<List<Beer>> {
         return repository.getBeerFood()
     }
+
+    fun searchNextPage(){
+    if(!loadingData
+        &&!isExhausted().value!!
+    ){
+        repository.searchNextPage()
+    }
+    }
+
+    fun setLoading(boolean: Boolean){
+        loadingData=boolean
+    }
+    fun isExhausted():LiveData<Boolean>{
+        return repository.getExhausted()
+    }
+
+    fun setBeerView(boolean: Boolean){
+        viewingBeer.value=boolean
+    }
+
+    fun setMyBeer(beer: Beer){
+        choosenBeer.value=beer
+    }
+
 }
