@@ -1,5 +1,6 @@
 package com.miklesam.openpunkapi.ui.category
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -182,8 +183,10 @@ class CategoryFragment : Fragment(),OnCategoryListener {
                 categoryViewModel.setFavorite(true)
                 categoryViewModel.setFavoriteChoose(true)
                 if(my_beer.image_url!=null){
-                    this.context?.let {
-                            it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url) }
+                    //this.context?.let {
+                    //        it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url)
+                     //   val path = Uri.parse(context?.filesDir.toString()+"/Images/").path+my_beer.id+".png"
+                     //   my_beer.image_url=path}
                 }else{
                     my_beer.image_url=CATEGORY_IMAGE_DIR+"baltic9"
                 }

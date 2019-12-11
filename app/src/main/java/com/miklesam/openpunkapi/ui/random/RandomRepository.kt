@@ -38,5 +38,9 @@ class RandomRepository(application: Application){
        return beerDao.checkingWithId(id)
     }
 
+    fun clear(){
+        BeerApiClient.clearBeer()
+    }
+
 
 }

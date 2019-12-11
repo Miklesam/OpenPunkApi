@@ -26,6 +26,7 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
         favorite.value=false
         favoriteChoose.value=false
         screenSaver.value=true
+        repository.clear()
         }
 
     fun setFavorite(boolean: Boolean){
@@ -39,7 +40,7 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun insertBeer(beer:Beer){
-    repository.insert(beer)
+       repository.insert(beer)
     }
 
     fun setScreenSaver(boolean: Boolean){

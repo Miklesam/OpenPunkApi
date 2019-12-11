@@ -54,16 +54,15 @@ class RandomFragment : Fragment() {
                 randomViewModel.setFavorite(true)
                 randomViewModel.setFavoriteChoose(true)
                 if(my_beer.image_url!=null){
-                    this.context?.let {
-                            it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url) }
+                    //this.context?.let {
+                     //       it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url)
+                     //   val path = Uri.parse(context?.filesDir.toString()+"/Images/").path+my_beer.id+".png"
+                       // my_beer.image_url=path}
                 }else{
                     my_beer.image_url=CATEGORY_IMAGE_DIR+"baltic9"
                 }
-
                 randomViewModel.insertBeer(my_beer)
             }
-
-
       }
         fab.setOnClickListener {
             fab.hide()
@@ -97,6 +96,7 @@ class RandomFragment : Fragment() {
         errorText.visibility=GONE
         progress.visibility=GONE
         fab.show()
+        image.setImageResource(R.drawable.baltic9)
         if(it.image_url!=null){
         Glide.with(this)
             .setDefaultRequestOptions(requestOptions)

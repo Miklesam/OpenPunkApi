@@ -24,8 +24,8 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun delete(beer: Beer){
-        val delIma=DownloadAndSaveImageTask(app.applicationContext,beer.id)
-        delIma.deleteFile()
+        //val delIma=DownloadAndSaveImageTask(app.applicationContext,beer.id)
+        //delIma.deleteFile()
         repository.delete(beer)
     }
 

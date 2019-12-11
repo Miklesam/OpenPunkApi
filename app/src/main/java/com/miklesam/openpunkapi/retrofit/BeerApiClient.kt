@@ -27,6 +27,10 @@ object BeerApiClient{
         mBeers.value=null
     }
 
+    fun clearBeer() {
+        mBeer.value=null
+    }
+
     fun clearCategoryError(){
         mCategoryError.value=null
     }
