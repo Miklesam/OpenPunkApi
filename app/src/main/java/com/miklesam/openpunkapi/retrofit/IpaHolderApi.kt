@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface IpaHolderApi {
     @GET("beers/random")
-    fun getRandomBeer(): Observable<List<Beer>>
+    fun getRandomBeer(): Single<List<Beer>>
 
     @GET("beers/")
     fun beerWithFood(

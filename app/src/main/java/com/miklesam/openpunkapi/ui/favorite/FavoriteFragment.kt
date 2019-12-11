@@ -40,6 +40,7 @@ class FavoriteFragment : Fragment(),OnBeerListener {
         val scrolView = root.findViewById<ScrollView>(R.id.scrollContainer)
         val mbeer_id=root.findViewById<TextView>(R.id.beer_id)
         val favorite=root.findViewById<ImageView>(R.id.add_to_favorite)
+        val datebrewed=root.findViewById<TextView>(R.id.date)
 
         val arrowBack=root.findViewById<ImageView>(R.id.emo)
         arrowBack.setOnClickListener {favoriteViewModel.setView(false)}
@@ -48,7 +49,6 @@ class FavoriteFragment : Fragment(),OnBeerListener {
         recycler.setHasFixedSize(true)
         val adapter = FavoriteAdapter(this)
         recycler.adapter = adapter
-
 
         favoriteViewModel.getBeers().observe(this, Observer {
             mBeers=it
@@ -67,11 +67,10 @@ class FavoriteFragment : Fragment(),OnBeerListener {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 favoriteViewModel.delete(adapter.getBeerAt(viewHolder.adapterPosition))
-                Toast.makeText(context, "Beer Deleted!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Beer Deleted!", Toast.LENGTH_SHORT).show()
             }
         }
         ).attachToRecyclerView(recycler)
-
 
         favoriteViewModel.getView().observe(this, Observer { isLoading ->
             if(isLoading) {
@@ -88,9 +87,11 @@ class FavoriteFragment : Fragment(),OnBeerListener {
         favoriteViewModel.getMyBeer().observe(this, Observer {
             beerName.text=it.name
             mbeer_id.text=it.id
+            val concat=getString(R.string.beerDate)+it.first_brewed
+            datebrewed.text=concat
             val ttt=it.image_url
             val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
+                .placeholder(R.color.white)
             Glide.with(this)
                 .setDefaultRequestOptions(requestOptions)
                 .load(ttt)

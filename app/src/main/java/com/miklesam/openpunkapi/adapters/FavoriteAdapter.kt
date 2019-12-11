@@ -34,7 +34,7 @@ class FavoriteAdapter(onBeerListener: OnBeerListener) :RecyclerView.Adapter<Favo
         holder.textViewTitle.text = currentBeer.name
 
         val requestOptions = RequestOptions()
-            .placeholder(R.drawable.ic_launcher_background)
+            .placeholder(R.color.white)
         Glide.with(holder.itemView.context)
             .setDefaultRequestOptions(requestOptions)
             .load(currentBeer.image_url)

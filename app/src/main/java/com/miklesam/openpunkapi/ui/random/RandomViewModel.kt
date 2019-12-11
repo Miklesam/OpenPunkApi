@@ -28,14 +28,10 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
         screenSaver.value=true
         }
 
-
     fun setFavorite(boolean: Boolean){
-        Log.w("favoriteChoose ",favoriteChoose.value.toString())
-        Log.w("favorite ",favorite.value.toString())
         if(!favoriteChoose.value!!){
             favorite.value=boolean
         }
-
     }
 
     fun setFavoriteChoose(boolean: Boolean){
@@ -57,7 +53,6 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
     fun getBeer(): LiveData<Beer> {
         return repository.getBeer()
     }
-
 
     fun getError(): LiveData<String> {
         return repository.getError()

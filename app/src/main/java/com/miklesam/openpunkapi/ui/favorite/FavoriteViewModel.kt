@@ -33,7 +33,6 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
         beerView.value=boolean
     }
 
-
     fun setMyBeer(beer: Beer){
         choosenBeer.value=beer
     }

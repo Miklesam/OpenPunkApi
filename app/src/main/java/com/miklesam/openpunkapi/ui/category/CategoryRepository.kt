@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.miklesam.openpunkapi.async.InsertBeerAsyncTask
 import com.miklesam.openpunkapi.data.Beer
 import com.miklesam.openpunkapi.data.BeerDao
 import com.miklesam.openpunkapi.data.BeerDatabase
@@ -31,6 +32,14 @@ class CategoryRepository(application: Application) {
         return mBeers
     }
 
+    fun clear(){
+        preListSize=0
+        mBeers.value=null
+        mIsQueryExhausted.value=false
+        BeerApiClient.clearBeers()
+        BeerApiClient.clearCategoryError()
+    }
+
     fun initMediators(){
         val beerList = BeerApiClient.getBeerFood()
         mBeers.addSource(beerList,
@@ -49,13 +58,10 @@ class CategoryRepository(application: Application) {
                mIsQueryExhausted.value=true
            }else{
                if(preListSize==beerList.size){
-                   Log.w("Exhausted Too ",beerList.size.toString())
                    mIsQueryExhausted.value=true
                }
-
            }
         preListSize=beerList.size
-
     }
 
     fun getExhausted():LiveData<Boolean>{
@@ -73,5 +79,17 @@ class CategoryRepository(application: Application) {
 
     fun searchNextPage(){
         beerWithFood(Page+1,Per_Page,Category)
+    }
+
+    fun insert(beer: Beer) {
+        val insertNoteAsyncTask = InsertBeerAsyncTask(beerDao).execute(beer)
+    }
+
+    fun checkId(id:String): LiveData<Beer> {
+        return beerDao.checkingWithId(id)
+    }
+
+    fun getError(): LiveData<String> {
+        return BeerApiClient.getCategoryError()
     }
 }

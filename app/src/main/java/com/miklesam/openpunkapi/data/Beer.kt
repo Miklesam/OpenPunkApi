@@ -15,7 +15,10 @@ data class Beer(
     @ColumnInfo(name = "tagline")
     var tagline:String,
     @ColumnInfo(name = "id")
-    var id :String
+    var id :String,
+    @ColumnInfo(name = "first_brewed")
+    var first_brewed :String
+
 )
 {
 @PrimaryKey(autoGenerate = true)

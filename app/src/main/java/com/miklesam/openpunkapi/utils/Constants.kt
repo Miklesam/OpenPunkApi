@@ -8,4 +8,6 @@ object Constants {
     val DEFAULT_SEARCH_CATEGORY_IMAGES =
         arrayOf("chicken", "fish", "salad", "cheese", "spicy")
 
+    val PER_PAGE ="5"
+
 }

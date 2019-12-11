@@ -21,15 +21,15 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
 
     private val mOnCategoryListener=onCategoryListener
     private var mBeer: MutableList<Beer>? = null
+    private var mError: String? = null
     companion object {
         const val BEER_TYPE = 1
         const val LOADING_TYPE = 2
         const val CATEGORY_TYPE = 3
         const val END_TYPE = 4
-
+        const val ERROR_TYPE = 5
         const val CATEGORY_IMAGE_DIR = "android.resource://com.miklesam.openpunkapi/drawable/"
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view: View? = null
@@ -54,6 +54,11 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
                     .inflate(R.layout.layuot_datas_end, parent, false)
                 return EndDataViewHolder(view!!)
             }
+            ERROR_TYPE->{
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layuot_datas_end, parent, false)
+                return ErrorViewHolder(view!!)
+            }
             else -> CategoryViewHolder(view!!, mOnCategoryListener)
         }
     }
@@ -69,7 +74,7 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
             CATEGORY_TYPE->{
                 myHolder=holder as CategoryViewHolder
                 val requestOptions = RequestOptions()
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.color.white)
                 val path = Uri.parse(
                     CATEGORY_IMAGE_DIR + mBeer?.get(position)?.image_url
                 )
@@ -91,16 +96,16 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
                 }else{
                     myHolder.imageView.setImageResource(R.drawable.baltic9)
                 }
-
-
                 (myHolder).name.setText(mBeer?.get(position)?.name)
                 (myHolder).tagline.setText(mBeer?.get(position)?.tagline)
                 myHolder.beerId.text= mBeer!!.get(position).id
             }
-
+            ERROR_TYPE->{
+                myHolder=holder as ErrorViewHolder
+                myHolder.errorText.text=mError
+            }
         }
     }
-
 
     fun setmBeer(beers: List<Beer>) {
         mBeer = beers.toMutableList()
@@ -115,6 +120,9 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
         }else if (mBeer?.get(position)?.name.equals("EXHAUSTED...")) {
             return END_TYPE
         }
+        else if (mBeer?.get(position)?.name.equals("ERROR...")) {
+            return ERROR_TYPE
+        }
         else if (position == mBeer!!.size - 1
             && position != 0
             && !mBeer!!.get(position).name.equals("EXHAUSTED...")
@@ -128,9 +136,18 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
 
     fun setQueryExhausted() {
         hideLoading()
-        val exhaustedBeer = Beer("","","","","")
+        val exhaustedBeer = Beer("","","","","","")
         exhaustedBeer.name=("EXHAUSTED...")
         mBeer?.add(exhaustedBeer)
+        notifyDataSetChanged()
+    }
+
+    fun setError(error:String) {
+        hideLoading()
+        mError=error
+        val errorBeer = Beer("","","","","","")
+        errorBeer.name=("ERROR...")
+        mBeer?.add(errorBeer)
         notifyDataSetChanged()
     }
 
@@ -145,11 +162,10 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
         }
     }
 
-
     fun displayCategories() {
         val categories = ArrayList<Beer>()
         for (i in 0 until Constants.DEFAULT_SEARCH_CATEGORIES.size) {
-            val beer = Beer("","","","","")
+            val beer = Beer("","","","","","")
             beer.name=(Constants.DEFAULT_SEARCH_CATEGORIES[i])
             beer.image_url=(Constants.DEFAULT_SEARCH_CATEGORY_IMAGES[i])
             beer.id="-1"
@@ -159,10 +175,9 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
         notifyDataSetChanged()
     }
 
-
     fun displayLoading() {
         if (!isLoading()) {
-            val beer = Beer("","","","","")
+            val beer = Beer("","","","","","")
             beer.name="LOADING..."
             val loadinglist = ArrayList<Beer>()
             loadinglist.add(beer)
@@ -182,7 +197,6 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
         return false
     }
 
-
     class CategoryViewHolder(itemView: View, internal var listener: OnCategoryListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var categoryImage: CircleImageView
@@ -191,9 +205,7 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
         init {
             categoryImage = itemView.findViewById(R.id.category_image)
             categoryTitle = itemView.findViewById(R.id.category_Title)
-
             itemView.setOnClickListener(this)
-
         }
         override fun onClick(view: View) {
             listener.onCategoryClick(categoryTitle.text.toString())
@@ -212,10 +224,7 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
             tagline = itemView.findViewById(R.id.beerTagline)
             beerId = itemView.findViewById(R.id.beerIid)
             imageView = itemView.findViewById(R.id.beer_image)
-
             itemView.setOnClickListener(this)
-
-
         }
 
         override fun onClick(view: View) {
@@ -225,4 +234,11 @@ class CategoryAdapter(onCategoryListener: OnCategoryListener) :RecyclerView.Adap
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     class EndDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ErrorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        internal var errorText: TextView
+        init {
+            errorText = itemView.findViewById(R.id.er_text)
+        }
+
+    }
 }

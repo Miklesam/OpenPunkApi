@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.codingwithmitch.foodrecipes.persistence.Converters
 
-@Database(entities = [Beer::class], version = 2)
+@Database(entities = [Beer::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class BeerDatabase : RoomDatabase() {
 
@@ -24,9 +24,7 @@ abstract class BeerDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         BeerDatabase::class.java, "beer_database"
-                    )
-                        .fallbackToDestructiveMigration() // when version increments, it migrates (deletes db and creates new) - else it crashes
-                        .addCallback(roomCallback)
+                    ).fallbackToDestructiveMigration()
                         .build()
                 }
             }
@@ -37,21 +35,8 @@ abstract class BeerDatabase : RoomDatabase() {
             instance = null
         }
 
-        private val roomCallback = object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                PopulateDbAsyncTask(instance)
-                    .execute()
-            }
-        }
+
 
     }
-    class PopulateDbAsyncTask(db: BeerDatabase?) : AsyncTask<Unit, Unit, Unit>() {
-        private val noteDao = db?.noteDao()
-        override fun doInBackground(vararg p0: Unit?) {
-            noteDao?.insert(Beer("title 1", "description 1","","",""))
-            noteDao?.insert(Beer("title 2", "description 2","","",""))
-            noteDao?.insert(Beer("title 3", "description 5","","",""))
-        }
-    }
+
   }

@@ -11,5 +11,10 @@
     <string name="title_beer_description">Description</string>
 
     <string name="get_random_title">Get Your Random Beer</string>
+    <string name="category_bar">Beer combined with...</string>
+    <string name="categoryBeer">Beer Name:</string>
+    <string name="categoryFood">Food Name:</string>
+    <string name="beerDate">First brewed:\n</string>
+
 
 </resources>

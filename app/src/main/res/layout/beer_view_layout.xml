@@ -64,14 +64,36 @@
 
             </LinearLayout>
 
-            <TextView
-                android:padding="@dimen/card_padding"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/beer_description_text_size"
-                android:textStyle="bold"
-                android:id="@+id/beer_tagline"
-                android:text="@string/title_beer_tagline"/>
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <TextView
+                    android:padding="@dimen/card_padding"
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/beer_description_text_size"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:id="@+id/beer_tagline"
+                    android:text="@string/title_beer_tagline"/>
+
+                <TextView
+                    android:gravity="end"
+                    android:padding="@dimen/card_padding"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/beer_description_text_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:id="@+id/date"
+                    android:text="@string/beerDate"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:padding="@dimen/card_padding"
@@ -79,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/beer_description_text_size"
                 android:textStyle="bold"
+                android:textColor="@color/darkgrey"
                 android:id="@+id/beer_description"
                 android:text="@string/title_beer_description"/>
 

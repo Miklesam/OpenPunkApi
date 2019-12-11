@@ -44,6 +44,7 @@ class RandomFragment : Fragment() {
         val beerId=root.findViewById<TextView>(R.id.beer_id)
         val beerTagLine=root.findViewById<TextView>(R.id.beer_tagline)
         val screenSaver=root.findViewById<TextView>(R.id.screenSaver)
+        val datebrewed=root.findViewById<TextView>(R.id.date)
 
         favorite.setOnClickListener {
             if(randomViewModel.isThisFavorite()!!){
@@ -56,7 +57,6 @@ class RandomFragment : Fragment() {
                     this.context?.let {
                             it1 -> DownloadAndSaveImageTask(it1,my_beer.id).execute(my_beer.image_url) }
                 }else{
-                    Log.w("path In Like","null_url")
                     my_beer.image_url=CATEGORY_IMAGE_DIR+"baltic9"
                 }
 
@@ -82,6 +82,8 @@ class RandomFragment : Fragment() {
         beerDescription.text=it.description
         beerId.text=it.id
         beerTagLine.text=it.tagline
+        val concat=getString(R.string.beerDate)+it.first_brewed
+        datebrewed.text=concat
 
             randomViewModel.checkId(it.id).observe(this, Observer { if(it!=null){
                 randomViewModel.setFavorite(true)
@@ -101,7 +103,6 @@ class RandomFragment : Fragment() {
             .load(it.image_url)
             .into(image)
     }else{
-        Log.w("path","null_url")
             image.setImageResource(R.drawable.baltic9)
     }
 }
