@@ -4,7 +4,7 @@ BeerFinder using PunkAPI https://punkapi.com/
 Приложение состоит из трех фрагментов:
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/1.jpg)
 
-Фрагмент Category – в котором можно подобрать пиво под определенный вид еды: выбрав из определённой категории или ввести в поиске блюдо, например, pizza: 
+Фрагмент **Category** – в котором можно подобрать пиво под определенный вид еды: выбрав из определённой категории или ввести в поиске блюдо, например, pizza: 
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/2.jpg)
 В данном фрагменте присутствует постраничная подгрузка данных. Также если нажать на выбранное пиво, откроется профиль этого пива: Такой профиль используется во всех фрагментах.
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/3.png)
@@ -15,6 +15,15 @@ BeerFinder using PunkAPI https://punkapi.com/
 
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/app/src/main/res/drawable/baltic9.jpg)
 
-Во фрагменте Random предлагается рандомное пиво. Оно также проверяется на то, находится ли оно в Favorite, и присутствует функция добавления в Favorite.
+Фрагмент **Random** предлагает рандомное пиво. Оно также проверяется на то, находится ли оно в Favorite, и присутствует функция добавления в Favorite.
 
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/4.jpg)
+
+Фрагмент **Favorite**:
+Присутствует просмотр любимых напитков, и просмотр профиля.
+![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/5.jpg)
+
+Удаление происходит свайпом.
+![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/6.jpg)
+
+**Спасибо за внимание.**
