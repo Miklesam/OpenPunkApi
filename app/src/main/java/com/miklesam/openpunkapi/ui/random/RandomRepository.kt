@@ -1,10 +1,8 @@
 package com.miklesam.openpunkapi.ui.random
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.miklesam.openpunkapi.async.InsertBeerAsyncTask
+import com.miklesam.openpunkapi.data.InsertBeer
 import com.miklesam.openpunkapi.data.Beer
 import com.miklesam.openpunkapi.data.BeerDao
 import com.miklesam.openpunkapi.data.BeerDatabase
@@ -20,7 +18,8 @@ class RandomRepository(application: Application){
     }
 
     fun insert(beer: Beer) {
-        val insertNoteAsyncTask = InsertBeerAsyncTask(beerDao).execute(beer)
+        InsertBeer(beerDao).insert(beer)
+
     }
 
     fun getRandomBeer() {

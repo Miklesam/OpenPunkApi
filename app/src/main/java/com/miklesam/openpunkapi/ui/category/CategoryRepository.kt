@@ -1,12 +1,11 @@
 package com.miklesam.openpunkapi.ui.category
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.miklesam.openpunkapi.async.InsertBeerAsyncTask
+import com.miklesam.openpunkapi.data.InsertBeer
 import com.miklesam.openpunkapi.data.Beer
 import com.miklesam.openpunkapi.data.BeerDao
 import com.miklesam.openpunkapi.data.BeerDatabase
@@ -82,7 +81,7 @@ class CategoryRepository(application: Application) {
     }
 
     fun insert(beer: Beer) {
-        val insertNoteAsyncTask = InsertBeerAsyncTask(beerDao).execute(beer)
+        InsertBeer(beerDao).insert(beer)
     }
 
     fun checkId(id:String): LiveData<Beer> {
