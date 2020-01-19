@@ -1,6 +1,9 @@
 # OpenPunkApi
 BeerFinder using PunkAPI https://punkapi.com/
 
+<a href="https://imgflip.com/gif/3mktvx"><img src="https://i.imgflip.com/3mktvx.gif" title="made at imgflip.com"/></a>
+
+
 Приложение состоит из трех фрагментов:
 ![Image alt](https://github.com/Miklesam/OpenPunkApi/blob/master/readme/1.jpg)
 
